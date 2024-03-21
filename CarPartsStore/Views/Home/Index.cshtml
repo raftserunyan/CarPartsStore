@@ -1,0 +1,309 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model ContactUsModel
+
+@{ Layout = null;}
+
+<!-- User -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@Localizer["Car Parts Store"]</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/libTemp/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/libTemp/css/agency.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Car Parts Store</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                @Localizer["Menu"]
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#products">@Localizer["PRODUCTS"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">@Localizer["About"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#team">@Localizer["Team"]</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">@Localizer["Contact"]</a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link text-light" style="text-decoration: none;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-globe"></i> @Localizer["Lang"]<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu bg-dark text-center">
+                            <li><a style="display: block; color: #fff; text-decoration: none;" href="?culture=en-US">English</a></li>
+                            <li><a style="display: block; color: #fff; text-decoration: none;" href="?culture=hy-AM">Հայերեն</a></li>
+                        </ul>
+                    </li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item ml-5 text-capitalize" style="display: flex; align-items: center;">
+                            <a class="nav-link js-scroll-trigger btn btn-primary" style="line-height: 0.5em; color: #fff;" asp-controller="Identity" asp-action="Logout" asp-area="">@Localizer["Log Out"] <i class="fa fa-sign-out"></i></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item ml-5 text-capitalize" style="display: flex; align-items: center;">
+                            <a class="nav-link js-scroll-trigger btn btn-primary" style="line-height: 0.5em; color: #fff;" asp-controller="Identity" asp-action="Login">@Localizer["Log In"]</a>
+                        </li>
+                        <li class="nav-item mr-4">
+                            <a class="nav-link js-scroll-trigger text-capitalize" style="text-decoration: none;" asp-controller="Identity" asp-action="SignUp">@Localizer["Sign Up"]</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead" style="background-image: url('@ViewBag.HeadSettings.ImageUrl'); height: 100vh;">
+        <div class="container">
+            <div class="intro-text" style="padding-top: 150px;">
+                <div class="intro-lead-in" style="color: @ViewBag.HeadSettings.FirstTextColor ;">@ViewBag.HeadSettings.FirstText</div>
+                <div class="intro-heading text-uppercase" style="color: @ViewBag.HeadSettings.SecondTextColor ;">@ViewBag.HeadSettings.SecondText</div>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" asp-action="Index" asp-controller="Home" asp-area="Admin">@Localizer["Go To Admin Panel"]</a>
+                }
+                else
+                {
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#portfolio">@ViewBag.HeadSettings.ButtonText</a>
+                }
+            </div>
+        </div>
+    </header>
+    <!-- Services = Products -->
+    <section id="products" style="background-color: #f2f3f4;">
+        <div class="container" id="portfolio">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">@Localizer["PRODUCTS"]</h2>
+                    <h3 class="section-subheading text-muted">@Localizer["Exclusive Garage"]</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                @foreach (Product product in ViewBag.Products)
+                {
+                    @Html.Partial("_ProductCardPartialView", product);
+                }
+            </div>
+    </section>
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">@Localizer["About"]</h2>
+                    <h3 class="section-subheading text-muted">@Localizer["Take a look at the great history of ours!"]</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+
+                        @foreach (TimelineModel tmModel in ViewBag.TimelineModels)
+                        {
+                            @Html.Partial("TimelineObjectPartial", tmModel);
+                        }
+
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>
+                                    @Localizer["Be Part"]
+                                    <br>@Localizer["Of Our"]
+                                    <br>@Localizer["Story!"]
+                                </h4>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team -->
+    <section class="bg-light" id="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">@Localizer["Our Amazing Team"]</h2>
+                    <h3 class="section-subheading text-muted">@Localizer["Get familiar with our team members"]</h3>
+                </div>
+            </div>
+            <div class="row">
+
+                @foreach (TeamMember member in ViewBag.TeamMembers)
+                {
+                    @Html.Partial("_TeamMemberPartial", member)
+                }
+
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="large text-muted">
+                        @Localizer["Our company makes the most sales in the country in the expense of this family-team...You can be one of us, if you like to do your best for any kind of responsibility!"]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Clients -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/envato.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/designmodo.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/themeforest.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/creative-market.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">@Localizer["Contact Us"]</h2>
+                    <h3 class="section-subheading text-muted">@Localizer["Let us know your opinion about our website."]</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <form asp-action="Contact" asp-controller="Home" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" asp-for="Name" type="text" placeholder="@Localizer["Your Name *"]">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" asp-for="Email" type="email" placeholder="@Localizer["Your Email *"]">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" asp-for="Phone" type="tel" placeholder="@Localizer["Your Phone *"]">
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control" asp-for="Message" id="message" placeholder="@Localizer["Your Message *"]"></textarea>
+                                    <span asp-validation-for="Message" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 text-center">
+                                @if (TempData["MsgSent"] != null)
+                                {
+                                    <div class="bg-light text-success col-sm-10 offset-sm-1 text-center mb-3" style="font-size: 2em; padding: 0.5em 0 0.5em 0;">@TempData["MsgSent"]</div>
+                                }
+                            <button class="btn btn-primary btn-xl text-uppercase" type="submit">@Localizer["Send Message"]</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; CarPartStore 2021</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#" target="_blank">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/rafik.tserunyan.1/" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/rafiktserunyan/" target="_blank">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a href="#">@Localizer["Privacy Policy"]</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">@Localizer["Terms of Use"]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modals -->
+    @foreach (Product product in @ViewBag.Products)
+    {
+        @Html.Partial("_ProductModalView", product)
+    }
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/libTemp/vendor/jquery/jquery.min.js"></script>
+    <script src="~/libTemp/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="~/libTemp/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Contact form JavaScript -->
+    <script src="~/libTemp/js/jqBootstrapValidation.js"></script>
+    <script src="~/libTemp/js/contact_me.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="~/libTemp/js/agency.min.js"></script>
+
+    @Html.Partial("_ValidationScriptsPartial")
+</body>
+</html>

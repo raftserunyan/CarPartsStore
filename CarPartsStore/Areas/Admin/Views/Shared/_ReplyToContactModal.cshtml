@@ -1,0 +1,57 @@
+﻿@model ContactUsModel
+
+<div class="portfolio-modal modal fade" id="ReplyToContact_@Model.Id" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin: 2rem 14rem 2rem 14rem;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="modal-body">
+
+                            <h2 class="text-uppercase mb-3">Reply To Contact</h2>
+
+                            <form asp-area="Admin" asp-controller="Contact" asp-action="ReplyToMail" method="post">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input class="form-control" asp-for="Id" type="text" value="@Model.Id" hidden="hidden">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sender's name</label>
+                                            <input class="form-control" asp-for="Name" type="text" value="@Model.Name" readonly="readonly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sender's email</label>
+                                            <input class="form-control" asp-for="Email" type="email" value="@Model.Email" readonly="readonly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Sender's Phone</label>
+                                            <input class="form-control" asp-for="Phone" type="tel" value="@Model.Phone" readonly="readonly">
+                                        </div>                                    
+                                        <div class="form-group">
+                                            <label>Sender's message</label>
+                                            <textarea class="form-control" asp-for="Message" value="@Model.Message" readonly="readonly"></textarea>
+                                        </div>  
+                                        <div class="form-group">
+                                            <label>Your reply</label>
+                                            <textarea class="form-control" name="replyMessage" placeholder="Thank you for your message!"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 text-center">
+                                        <button class="btn btn-primary btn-xl" type="submit">Reply<i class="bi bi-reply-fill"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

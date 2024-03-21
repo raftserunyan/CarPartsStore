@@ -1,0 +1,22 @@
+﻿@model Category
+
+<div class="col-md-4 col-sm-6 mb-4">
+    <div class="card h-100" style="border: none;">
+        <div class="portfolio-item" style="display: flex; flex-direction: column; height: 100%; margin-bottom: 0;">
+            
+            <div class="portfolio-caption" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h4>@Model.Name</h4>
+                <p class="text-muted">@Model.Products</p>
+
+                <div class="mt-2">
+                    <a style="border-radius: 50%;" class="btn btn-primary mr-2" asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-categoryId="@Model.Id">
+                        <i style="font-size: 1.5rem;" class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a style="border-radius: 50%;" class="btn btn-danger ml-2" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-catId="@Model.Id">
+                        <i style="font-size: 1.5rem;" class="bi bi-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

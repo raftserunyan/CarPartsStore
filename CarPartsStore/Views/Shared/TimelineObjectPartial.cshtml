@@ -1,0 +1,33 @@
+﻿@model TimelineModel
+@using System.Globalization;
+
+@*<li class="timeline-inverted">
+        <div class="timeline-image">
+            <img class="rounded-circle img-fluid" src="~/libTemp/img/about/4.jpg" alt="">
+        </div>
+        <div class="timeline-panel">
+            <div class="timeline-heading">
+                <h4>July 2014</h4>
+                <h4 class="subheading">Phase Two Expansion</h4>
+            </div>
+            <div class="timeline-body">
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+            </div>
+        </div>
+    </li>*@
+
+<li class="@Model.Side" id="portfolio">
+    <div class="timeline-image timelineNodeImg">
+        <img class="rounded-circle img-fluid" src="@Url.Content(Model.ImageUrl)" style="width:100%; height: 100%; object-fit:cover;" alt="">
+    </div>
+
+    <div class="timeline-panel">
+        <div class="timeline-heading">
+            <h4>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Date.Month) @Model.Date.Year</h4>
+            <h4 class="subheading">@Model.Title</h4>
+        </div>
+        <div class="timeline-body">
+            <p class="text-muted">@Model.Description</p>
+        </div>
+    </div>
+</li>

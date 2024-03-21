@@ -1,0 +1,24 @@
+﻿body {
+}
+
+.member-image {
+    border: none;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.btn-login {
+    background-color: #fed136;
+    border-color: #fed136;
+}
+
+    .btn-login:active, .btn-login:focus, .btn-login:hover {
+        background-color: #ffc824 !important;
+        border-color: #ffc824 !important;
+        color: #fff;
+    }
+
+    .btn-login:active, .btn-login:focus {
+        box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+    }

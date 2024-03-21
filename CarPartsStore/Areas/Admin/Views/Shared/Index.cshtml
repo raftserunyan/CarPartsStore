@@ -1,0 +1,385 @@
+﻿@model IEnumerable<ContactUsModel>
+
+@{ Layout = null;}
+
+<!-- Admin -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Car Parts Store</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/libTemp/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/libTemp/css/agency.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Car Parts Store</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#products">PRODUCTS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" asp-area="Admin" asp-controller="Logs" asp-action="Index">Logs</a>
+                    </li>
+                    <li class="nav-item ml-5 text-capitalize" style="display: flex; align-items: center;">
+                        <a class="nav-link js-scroll-trigger btn btn-primary" style="line-height: 0.5em; color: #fff;" asp-controller="Identity" asp-action="Logout" asp-area="">Log Out <i class="fa fa-sign-out"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead" style="background-image: url('@ViewBag.HeadSettings.ImageUrl'); height: 100vh;">
+        <div class="container">
+            <div class="intro-text" style="padding-top: 150px;">
+                <div class="container text-sm-right" style="font-size: 4em;">
+                    <a class="portfolio-link" data-toggle="modal" href="#HeadSectionEdit">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </div>
+
+                <div class="intro-lead-in" style="color: @ViewBag.HeadSettings.FirstTextColor ;">@ViewBag.HeadSettings.FirstText</div>
+                <div class="intro-heading text-uppercase" style="color: @ViewBag.HeadSettings.SecondTextColor ;">@ViewBag.HeadSettings.SecondText</div>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" asp-action="Index" asp-controller="Home" asp-area="">Go To User Page</a>
+            </div>
+        </div>
+    </header>
+    <!-- Services = Products -->
+    <section id="products" style="background-color: #f2f3f4;">
+        <div class="container" id="portfolio">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">PRODUCTS</h2>
+                    <h3 class="section-subheading text-muted">Exclusive Garage</h3>
+                </div>
+            </div>
+
+            <div class="container mb-4" style="height: 4rem; border: 1px solid #fed136; border-radius: 1em; background-color: #fff;">
+                <a class="portfolio-link" data-toggle="modal" href="#Add_Product" style="text-decoration: none;">
+                    <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <i class="fa fa-plus fa-3x text-primary"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="row">
+                @foreach (Product product in ViewBag.Products)
+                {
+                    @Html.Partial("_ProductCardPartialView", product);
+                }
+            </div>
+    </section>
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">About</h2>
+                    <h3 class="section-subheading text-muted">Take a look at the great history of ours!</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+
+                        @foreach (TimelineModel tmModel in ViewBag.TimelineModels)
+                        {
+                            @Html.Partial("TimelineObjectPartial", tmModel);
+                        }
+
+                        <li class="timeline-inverted">
+                            <a class="portfolio-link" data-toggle="modal" href="#Add_TimelineNode">
+                                <div class="timeline-image" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                    <i class="fa fa-plus fa-3x"></i>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team -->
+    <section class="bg-light" id="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Get familiar with our team members</h3>
+                </div>
+            </div>
+
+            <div class="container mb-4" style="height: 4rem; border: 1px solid #fed136; border-radius: 1em; background-color: #fff;">
+                <a class="portfolio-link" data-toggle="modal" href="#Add_TeamMember" style="text-decoration: none;">
+                    <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <i class="fa fa-plus fa-3x text-primary"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="row">
+
+                @foreach (TeamMember member in ViewBag.TeamMembers)
+                {
+                    @Html.Partial("_TeamMemberPartial", member)
+                }
+
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Clients -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/envato.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/designmodo.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/themeforest.jpg" alt="">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="~/libTemp/img/logos/creative-market.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Contact Us</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <table class="table table-striped table-bordered">
+                        <tr class="text-light bg-dark">
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Message</th>
+                            <th></th>
+                        </tr>
+                        @foreach (ContactUsModel contact in Model)
+                        {
+                            <tr class="text-center text-light">
+                                <td>@contact.Name</td>
+                                <td>@contact.Email</td>
+                                <td>@contact.Phone</td>
+                                <td>@contact.Message</td>
+                                <td class="text-center">
+                                    <a class="btn btn-primary" data-toggle="modal" href="#ReplyToContact_@contact.Id">
+                                        <i class="bi bi-reply-fill"></i>
+                                    </a>
+                                    <a class="btn btn-danger" asp-area="Admin" asp-controller="Contact" asp-action="Delete" asp-route-messageId="@contact.Id">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; CarPartStore 2021</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li class="list-inline-item">
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modals -->
+    @foreach (Product product in @ViewBag.Products)
+    {
+        @Html.Partial("_ProductModalView", product)
+    }
+    <!-- Product Edit Modals -->
+    @foreach (Product product in @ViewBag.Products)
+    {
+        @Html.Partial("_EditProductModal", product)
+    }
+
+    <!-- Edit Timeline Modal -->
+    @foreach (TimelineModel tm in ViewBag.TimelineModels)
+    {
+        @Html.Partial("_EditTimelineNodeModal", tm)
+    }
+
+    <!-- Edit Team Member Modal -->
+    @foreach (TeamMember tm in ViewBag.TeamMembers)
+    {
+        @Html.Partial("_EditTeamMemberModal", tm)
+    }
+    
+    <!-- Reply to messages Modal -->
+    @foreach (ContactUsModel cModel in Model)
+	{
+		 @Html.Partial("_ReplyToContactModal", cModel)
+	}
+
+
+    <!-- Head Section Edit Modal -->
+    <div class="portfolio-modal modal fade" id="HeadSectionEdit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="margin: 2rem 14rem 2rem 14rem;">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 mx-auto">
+                            <div class="modal-body">
+
+                                <h2 class="text-uppercase mb-3">Edit Head Section</h2>
+
+                                <form asp-area="Admin" asp-controller="Home" asp-action="EditHeadSection" method="post">
+                                    <div class="form-group">
+                                        <input name="id" class="form-control" type="text" value="@ViewBag.HeadSettings.Id" hidden="hidden" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Image Url</label>
+                                        <input name="imgUrl" class="form-control" type="text" value="@ViewBag.HeadSettings.ImageUrl" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>First text</label>
+                                        <input name="txt1" class="form-control" type="text" value="@ViewBag.HeadSettings.FirstText" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>First Text Color(HEX)</label>
+                                        <input name="ftColor" class="form-control" type="text" value="@ViewBag.HeadSettings.FirstTextColor" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Second text</label>
+                                        <input name="txt2" class="form-control" type="text" value="@ViewBag.HeadSettings.SecondText" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Second Text Color(HEX)</label>
+                                        <input name="stColor" class="form-control" type="text" value="@ViewBag.HeadSettings.SecondTextColor" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Button Text</label>
+                                        <input name="btnTxt" class="form-control" type="text" value="@ViewBag.HeadSettings.ButtonText" />
+                                    </div>
+                                    <button class="btn btn-primary btn-xl text-uppercase" type="submit">Save</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Product Modal -->
+    @Html.Partial("_AddProductModal", new Product())
+    <!-- Add Timeline Node Modal -->
+    @Html.Partial("_AddTimelineNodeModal", new TimelineModel())
+    <!-- Add Team Member Modal -->
+    @Html.Partial("_AddTeamMemberModal", new TeamMember())
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/libTemp/vendor/jquery/jquery.min.js"></script>
+    <script src="~/libTemp/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="~/libTemp/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Contact form JavaScript -->
+    <script src="~/libTemp/js/jqBootstrapValidation.js"></script>
+    <script src="~/libTemp/js/contact_me.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="~/libTemp/js/agency.min.js"></script>
+
+    @Html.Partial("_ValidationScriptsPartial")
+</body>
+</html>

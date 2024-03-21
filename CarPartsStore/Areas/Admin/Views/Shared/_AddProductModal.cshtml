@@ -1,0 +1,55 @@
+﻿@model Product
+
+<div class="portfolio-modal modal fade" id="Add_Product" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin: 2rem 14rem 2rem 14rem;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="modal-body">
+
+                            <h2 class="text-uppercase mb-3">Add Product</h2>
+
+                            <form asp-area="Admin" asp-controller="Product" asp-action="Add" method="post" >
+                                <div class="form-group">
+                                    <label asp-for="Name">Name</label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <input asp-for="Name" class="form-control" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ImageUrl">Image Url</label>
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                    <input asp-for="ImageUrl" class="form-control" type="text" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description">Description</label>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                    <input asp-for="Description" class="form-control" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Price">Price</label>
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                    <input asp-for="Price" class="form-control" type="text" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CategoryId">Price</label>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                    <select asp-for="CategoryId" asp-items="@((SelectList)ViewBag.CategorySelect)" class="form-control">
+                                        <option value="null" selected>Select The Category</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary btn-xl text-uppercase" type="submit">Save Changes</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

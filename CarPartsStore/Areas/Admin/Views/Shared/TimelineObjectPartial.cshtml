@@ -1,0 +1,25 @@
+﻿@model TimelineModel
+@using System.Globalization;
+
+<li class="@Model.Side" id="portfolio">
+        <div class="timeline-image portfolio-item timelineNodeImg">
+            <a class="portfolio-link" style="width: 100%; height: 100%;" data-toggle="modal" href="#Edit_TimelineNode_@Model.Id">
+                <div class="portfolio-hover" style="border-radius: 50%;">
+                    <div class="portfolio-hover-content">
+                        <i class="fa fa-pencil fa-3x"></i>
+                    </div>
+                </div>
+                <img class="rounded-circle img-fluid" src="@Url.Content(Model.ImageUrl)" style="width:100%; height: 100%; object-fit:cover;" alt="">
+            </a>
+        </div>
+
+        <div class="timeline-panel">
+            <div class="timeline-heading">
+                <h4>@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Date.Month) @Model.Date.Year</h4>
+                <h4 class="subheading">@Model.Title</h4>
+            </div>
+            <div class="timeline-body">
+                <p class="text-muted">@Model.Description</p>
+            </div>
+        </div>
+    </li>

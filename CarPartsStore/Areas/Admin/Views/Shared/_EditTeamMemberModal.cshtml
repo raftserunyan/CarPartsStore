@@ -1,0 +1,92 @@
+﻿@model TeamMember
+
+<div class="portfolio-modal modal fade" id="Edit_TeamMember_@Model.Id" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="margin: 2rem 14rem 2rem 14rem;">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="modal-body">
+
+                            <h2 class="text-uppercase mb-3">Add Team Member</h2>
+
+                            <form asp-area="Admin" asp-controller="TeamMember" asp-action="Edit" method="post" asp-antiforgery="true">
+                                <div class="form-group">
+                                    <input asp-for="Id" class="form-control" type="text" value="@Model.Id" hidden="hidden" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Name">Name</label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <input asp-for="Name" class="form-control" type="text" value="@Model.Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ImageUrl">Image Url</label>
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                    @if (Model.ImageUrl == "~/img/noimage.png")
+                                    {
+                                        <input asp-for="ImageUrl" class="form-control" type="text" value="" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="ImageUrl" class="form-control" type="text" value="@Model.ImageUrl" />
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Position">Position</label>
+                                    <span asp-validation-for="Position" class="text-danger"></span>
+                                    <input asp-for="Position" class="form-control" type="text" value="@Model.Position" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FacebookLink">FacebookLink</label>
+                                    <span asp-validation-for="FacebookLink" class="text-danger"></span>
+                                    @if (Model.FacebookLink == "#")
+                                    {
+                                        <input asp-for="FacebookLink" class="form-control" type="text" value="" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="FacebookLink" class="form-control" type="text" value="@Model.FacebookLink" />
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="TwitterLink">TwitterLink</label>
+                                    <span asp-validation-for="TwitterLink" class="text-danger"></span>
+                                    @if (Model.TwitterLink == "#")
+                                    {
+                                        <input asp-for="TwitterLink" class="form-control" type="text" value="" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="TwitterLink" class="form-control" type="text" value="@Model.TwitterLink" />
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LinkedinLink">LinkedinLink</label>
+                                    <span asp-validation-for="LinkedinLink" class="text-danger"></span>
+                                    @if (Model.LinkedinLink == "#")
+                                    {
+                                        <input asp-for="LinkedinLink" class="form-control" type="text" value="" />
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="LinkedinLink" class="form-control" type="text" value="@Model.LinkedinLink" />
+                                    }
+                                </div>
+                                <button class="btn btn-primary btn-xl text-uppercase" type="submit">Save Changes</button>
+                                <a class="btn btn-danger btn-xl text-uppercase" asp-area="Admin" asp-controller="TeamMember" asp-action="Delete" asp-route-memId="@Model.Id">
+                                    Delete Record<i class="bi bi-trash"></i>
+                                </a>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model Product
+
+<div class="col-md-4 col-sm-6 mb-4">
+    <div class="card h-100" style="border: none;">
+        <div class="portfolio-item" style="display: flex; flex-direction: column; height: 100%; margin-bottom: 0;">
+            <a class="portfolio-link" style="margin: 0;" data-toggle="modal" href="#@Model.ProductID">
+                <div class="portfolio-hover">
+                    <div class="portfolio-hover-content">
+                        <i class="fa fa-expand fa-3x"></i>
+                    </div>
+                </div>
+                <img class="img-fluid" src="@Url.Content(Model.ImageUrl)" alt="" style="max-width: 100%;
+                                                                                                display: block;
+                                                                                                margin-left: auto;
+                                                                                                margin-right: auto;">
+            </a>
+            <div class="portfolio-caption" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h4>@Model.Name</h4>
+                <p class="text-muted">@Model.Category.Name</p>
+            </div>
+        </div>
+    </div>
+</div>
